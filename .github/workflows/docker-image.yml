@@ -18,10 +18,7 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       
     - name: Log in to Docker Hub
-      run: |
-        mkdir -p ~/.docker
-        echo '{"auths":{"docker.io":{"username":"sankar0812","password":"${{ secrets.DOCKER_PASSWORD }}"}}}' > ~/.docker/config.json
-        docker login
+      run: docker login -u sankar0812 -p "${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Push the Docker image to Docker Hub
       run: docker push my-image-name:$(date +%s)
