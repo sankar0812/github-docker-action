@@ -18,7 +18,7 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       
     - name: Log in to Docker Hub
-      run: docker login -u sankar0812 -p "${{ secrets.DOCKER_PASSWORD }}"
+      run: echo "DOCKER_USERNAME=sankar0812" >> $GITHUB_ENV && echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV && docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Push the Docker image to Docker Hub
       run: docker push my-image-name:$(date +%s)
